@@ -9,10 +9,13 @@ def swap(lst, a, b):
 def get_smaller_child(heap, idx):
     l = idx * 2 + 1
     r = l + 1
+    # default to left
     child_idx = l
+    # while right (left inclusive) IS out of bounds
     if r >= len(heap):
         return child_idx
     if heap[l] > heap[r]:
+        # select the smaller child
         child_idx = r
     return child_idx
 
@@ -25,10 +28,8 @@ def bubble_up(heap, idx):
 
 
 def bubble_down(heap, idx):
-    # defaults to left
-    # left: idx * 2 + 1, right: idx * 2 + 2
     child_idx = get_smaller_child(heap, idx)
-    print('smaller child: ', child_idx)
+    # while left (right inclusive) is NOT out of bounds and parent > child
     while idx * 2 + 1 < len(heap) and heap[idx] > heap[child_idx]:
         swap(heap, idx, child_idx)
         idx = child_idx
@@ -52,57 +53,14 @@ class HeapPQ:
         return self.heap[0]
 
     def poll(self):
+        if len(self.heap) == 0:
+            return None
+        # switch the first and last
         swap(self.heap, 0, len(self.heap) - 1)
+        # pop the last
         val = self.heap.pop()
         bubble_down(self.heap, 0)
         return val
 
     def decrease_key(self):
         pass
-    
-
-pq = HeapPQ()
-pq.insert(5)
-pq.insert(3)
-pq.insert(6)
-pq.insert(7)
-pq.insert(0)
-pq.insert(1)
-pq.insert(4)
-pq.insert(9)
-pq.insert(10)
-pq.insert(11)
-pq.insert(13)
-pq.insert(15)
-pq.insert(14)
-pq.insert(2)
-pq.insert(12)
-print(pq.heap)
-print(pq.poll())
-print(pq.heap)
-print(pq.poll())
-print(pq.heap)
-print(pq.poll())
-print(pq.heap)
-print(pq.poll())
-print(pq.heap)
-print(pq.poll())
-print(pq.heap)
-print(pq.poll())
-print(pq.heap)
-print(pq.poll())
-print(pq.heap)
-print(pq.poll())
-print(pq.heap)
-print(pq.poll())
-print(pq.heap)
-print(pq.poll())
-print(pq.heap)
-print(pq.poll())
-print(pq.heap)
-print(pq.poll())
-print(pq.heap)
-print(pq.poll())
-print(pq.heap)
-print(pq.poll())
-print(pq.heap)
