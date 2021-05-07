@@ -7,11 +7,13 @@ def swap(lst, a, b):
 
 
 def get_smaller_child(heap, idx):
-    child_idx = idx * 2 + 1
-    if child_idx + 1 >= len(heap):
-        return child_idx + 1
-    if heap[child_idx] > heap[child_idx + 1]:
-        child_idx += 1
+    l = idx * 2 + 1
+    r = l + 1
+    child_idx = l
+    if r >= len(heap):
+        return child_idx
+    if heap[l] > heap[r]:
+        child_idx = r
     return child_idx
 
 def bubble_up(heap, idx):
@@ -27,7 +29,7 @@ def bubble_down(heap, idx):
     # left: idx * 2 + 1, right: idx * 2 + 2
     child_idx = get_smaller_child(heap, idx)
     print('smaller child: ', child_idx)
-    while child_idx < len(heap) - 1 and heap[idx] > heap[child_idx]:
+    while idx * 2 + 1 < len(heap) and heap[idx] > heap[child_idx]:
         swap(heap, idx, child_idx)
         idx = child_idx
         child_idx = get_smaller_child(heap, child_idx)
@@ -104,7 +106,3 @@ print(pq.poll())
 print(pq.heap)
 print(pq.poll())
 print(pq.heap)
-
-
-
-
